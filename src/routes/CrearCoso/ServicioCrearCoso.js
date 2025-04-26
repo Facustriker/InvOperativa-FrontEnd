@@ -1,6 +1,6 @@
-const BASE_URL = "http://localhost:8080/CrearArticulo";
+const BASE_URL = "http://localhost:8080/CrearCoso";
 
-const crearArticulo = async (dto) => {
+const crearCoso = async (dto) => {
   try {
     const response = await fetch(`${BASE_URL}/crear`, {
       method: "POST",
@@ -23,8 +23,8 @@ const crearArticulo = async (dto) => {
   }
 };
 
-const ServicioCrearArticulo = {
-  crearArticulo,
+const ServicioCrearCoso = {
+  crearCoso,
 };
 
-export default ServicioCrearArticulo;
+export default ServicioCrearCoso;

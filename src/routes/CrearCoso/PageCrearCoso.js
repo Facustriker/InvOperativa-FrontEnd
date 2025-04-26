@@ -1,20 +1,20 @@
 import { useState } from 'react';
-import ServicioCrearArticulo from './ServicioCrearArticulo';
-import DTOCrearArticulo from './DTOCrearArticulo';
+import ServicioCrearCoso from './ServicioCrearCoso';
+import DTOCrearCoso from './DTOCrearCoso';
 
-function CrearArticulo() {
-  const [nombreArticulo, setNombreArticulo] = useState("");
+function CrearCoso() {
+  const [nombreCoso, setNombreCoso] = useState("");
   const [error, setError] = useState(null);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const dto = new DTOCrearArticulo(nombreArticulo);
+    const dto = new DTOCrearCoso(nombreCoso);
 
     try {
-      const respuesta = await ServicioCrearArticulo.crearArticulo(dto);
+      const respuesta = await ServicioCrearCoso.crearCoso(dto);
       console.log("Respuesta del backend:", respuesta);
-      alert("Artículo creado con éxito");
-      setNombreArticulo("");
+      alert("Coso creado con éxito");
+      setNombreCoso("");
       setError(null);
     } catch (error) {
       console.error("Error al crear el artículo:", error);
@@ -24,15 +24,15 @@ function CrearArticulo() {
 
   return (
     <div style={{ margin: '2rem', padding: '1rem' }}>
-      <h2>Crear Artículo</h2>
+      <h2>Crear Coso</h2>
       {error && <p style={{ color: 'red' }}>{error}</p>}
       <form onSubmit={handleSubmit}>
         <div>
-          <label>Nombre del Artículo:</label><br />
+          <label>Nombre del Coso:</label><br />
           <input
             type="text"
-            value={nombreArticulo}
-            onChange={(e) => setNombreArticulo(e.target.value)}
+            value={nombreCoso}
+            onChange={(e) => setNombreCoso(e.target.value)}
             required
           />
         </div>
@@ -42,4 +42,4 @@ function CrearArticulo() {
   );
 }
 
-export default CrearArticulo;
+export default CrearCoso;

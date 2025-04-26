@@ -1,25 +1,43 @@
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import './App.css'; // Estilos
-
-import CrearArticulo from './routes/CrearArticulo/PageCrearArticulo'; // Importamos la página de Crear Artículo
+import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
+import './App.css';
+import CrearCoso from './routes/CrearCoso/PageCrearCoso';
+import Borrador from './routes/Borrador/pageBorrador';
 
 function App() {
+  const location = useLocation(); // <- Agarra la página actual
+
+  // Rutas donde NO queremos mostrar el header
+  const noHeaderRoutes = ['/Borrador', '/CrearCoso'];
+
+  const showHeader = !noHeaderRoutes.includes(location.pathname);
+
   return (
-    <Router>
-      <div className="App">
+    <div className="App">
+      {showHeader && (
         <header className="App-header">
-          <h1>Bienvenido a la App de Artículos</h1>
-          {/* Enlace para navegar a la página de Crear Artículo */}
-          <Link to="/CrearArticulo" style={{ textDecoration: 'none', color: 'black' }}>
-            <button>Crear Artículo</button>
+          <h1>Bienvenido a la App de Cosos</h1>
+          <Link to="/CrearCoso" style={{ textDecoration: 'none', color: 'black' }}>
+            <button>Crear Coso</button>
+          </Link>
+          <Link to="/Borrador" style={{ textDecoration: 'none', color: 'black' }}>
+            <button>Ir a términos y condiciones</button>
           </Link>
         </header>
-        <Routes>
-          <Route path="/CrearArticulo" element={<CrearArticulo />} />
-        </Routes>
-      </div>
+      )}
+      <Routes>
+        <Route path="/CrearCoso" element={<CrearCoso />} />
+        <Route path="/Borrador" element={<Borrador />} />
+      </Routes>
+    </div>
+  );
+}
+
+function AppWrapper() {
+  return (
+    <Router>
+      <App />
     </Router>
   );
 }
 
-export default App;
+export default AppWrapper;
