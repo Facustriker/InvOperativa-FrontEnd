@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import ServicioABProveedor from "./ServicioABProveedor";
+import './ABProveedor.css';
 
 function ABProveedor() {
     const [proveedores, setProveedores] = useState([]);
@@ -42,22 +43,15 @@ function ABProveedor() {
     return (
         <div>
             
-            {error && (
-                <div style={{ backgroundColor: "red", color: "white", padding: "10px", marginBottom: "10px" }}>
-                    <h2>ERROR</h2>
-                    <p>{error}</p>
-                </div>
-            )}
+            
 
-            <div>
-                <div style={{ position: "fixed", top: "1rem", right: "1rem", zIndex: 1000 }}>
-                    <button onClick={altaProveedor}>Alta Proveedor</button>
-                </div>
+            <div className="header-container">
+                <h2 className="titulo-centro">Lista de Proveedores</h2>
+                <button className="boton-derecha" onClick={altaProveedor}>Alta Proveedor</button>
             </div>
 
-            <div>
-                <h2>Lista de Proveedores</h2>
-                <table border="1">
+            <div className="table-container">
+                <table>
                     <thead>
                         <tr>
                             <th>ID Proveedor</th>
@@ -85,6 +79,15 @@ function ABProveedor() {
                     </tbody>
                 </table>
             </div>
+
+            {error && (
+                <div className="error-message">
+                    <h2>ERROR</h2>
+                    <p>{error}</p>
+                </div>
+            )}
+
+            
         </div>
     );
 }

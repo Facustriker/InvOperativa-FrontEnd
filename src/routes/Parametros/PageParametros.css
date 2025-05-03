@@ -1,0 +1,14 @@
+.parametros-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 50vh; /* o 100vh si querés que ocupe toda la altura de la pantalla */
+    gap: 2em; /* separación entre botones */
+  }
+  
+  .parametros-button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    cursor: pointer;
+  }  
