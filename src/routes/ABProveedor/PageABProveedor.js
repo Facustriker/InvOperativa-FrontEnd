@@ -1,19 +1,27 @@
 import { useEffect, useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import ServicioABProveedor from "./ServicioABProveedor";
 import './ABProveedor.css';
 
 function ABProveedor() {
     const [proveedores, setProveedores] = useState([]);
     const [error, setError] = useState(null);
+    const navigate = useNavigate();
+    const [mostrarSoloVigentes, setMostrarSoloVigentes] = useState(true);
+    const location = useLocation();
 
-    useEffect(() => {
-        ServicioABProveedor.getProveedores()
-            .then(data => setProveedores(data))
-            .catch(error => {
-                console.error("Error al obtener proveedores:", error);
-                setError("No se han encontrado proveedores");
-            });
-    }, []);
+    const cargarProveedores = (soloVigentes) => {
+        ServicioABProveedor.getProveedores(soloVigentes)
+          .then(data => setProveedores(data))
+          .catch(error => {
+            console.error("Error al obtener proveedores:", error);
+            setError("No se han encontrado proveedores");
+          });
+      };
+    
+      useEffect(() => {
+        cargarProveedores(mostrarSoloVigentes);
+      }, [mostrarSoloVigentes, location.state]);
 
     const altaProveedor = async () => {
         let response = await ServicioABProveedor.altaProveedor();
@@ -24,6 +32,10 @@ function ABProveedor() {
 
         window.location.reload();
     };
+
+    const handleCheckboxChange = (e) => {
+        setMostrarSoloVigentes(e.target.checked);
+      };
 
     const darBaja = async (idProveedor) => {
         let response = await ServicioABProveedor.darBaja(idProveedor);
@@ -42,12 +54,32 @@ function ABProveedor() {
 
     return (
         <div>
-            
-            
 
-            <div className="header-container">
-                <h2 className="titulo-centro">Lista de Proveedores</h2>
-                <button className="boton-derecha" onClick={altaProveedor}>Alta Proveedor</button>
+            <div className="header-container" style={{ display: "flex", alignItems: "center", justifyContent:"space-between" }}>
+
+                <button className="boton-volver" onClick={() => navigate("/Parametros")}>
+                    Volver
+                </button>
+
+                <div style={{ display: "flex", alignItems: "center", gap:50 }}>
+                    <h2 className="titulo-centro">
+                        Lista de Proveedores
+                    </h2>
+
+                    <div style={{ display: "flex", alignItems: "center", gap: 10}}>
+                        <label>
+                            <input
+                                type="checkbox"
+                                checked={mostrarSoloVigentes}
+                                onChange={handleCheckboxChange}
+                            />
+                            Mostrar solo proveedores vigentes
+                        </label>
+    
+                        <button onClick={altaProveedor} className="boton-derecha">Nuevo proveedor</button>
+    
+                    </div>
+                </div>
             </div>
 
             <div className="table-container">

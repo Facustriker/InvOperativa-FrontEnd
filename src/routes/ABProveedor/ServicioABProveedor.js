@@ -1,7 +1,7 @@
 const BASE_URL = "http://localhost:8080/ABProveedor";
 
-const getProveedores = async () => {
-    const response = await fetch(`${BASE_URL}/getProveedores`, {
+const getProveedores = async (soloVigentes) => {
+    const response = await fetch(`${BASE_URL}/getProveedores?soloVigentes=${soloVigentes}`, {
         method: "GET",
         headers: {
             "Content-Type": "application/json",

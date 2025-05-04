@@ -5,6 +5,8 @@ import PageParametros from './routes/Parametros/PageParametros';
 import PageABProveedor from './routes/ABProveedor/PageABProveedor';
 import PageABMEstadoOrdenCompra from './routes/ABMEstadoOrdenCompra/PageABMEstadoOrdenCompra';
 import PageABMModeloInventario from './routes/ABMModeloInventario/PageABMModeloInventario';
+import PageModificarEstado from './routes/ABMEstadoOrdenCompra/PageModificarEstado';
+import PageAltaEstado from './routes/ABMEstadoOrdenCompra/PageAltaEstado';
 
 function App() {
   const location = useLocation();
@@ -31,7 +33,10 @@ function App() {
         {/* Agregar rutas ACÁ abajo a medida que se necesite */}
         <Route path="/Parametros" element={<PageParametros />}>
           <Route path="ABProveedor" element={<PageABProveedor />} />
-          <Route path="ABMEstadoOrdenCompra" element={<PageABMEstadoOrdenCompra />} />
+          <Route path="ABMEstadoOrdenCompra" element={<PageABMEstadoOrdenCompra />}>
+            <Route path="PageAltaEstado" element={<PageAltaEstado />} />
+            <Route path="PageModificarEstado/:id" element={<PageModificarEstado />} />
+          </Route>
           <Route path="ABMModeloInventario" element={<PageABMModeloInventario />} />
         </Route>
       </Routes>
