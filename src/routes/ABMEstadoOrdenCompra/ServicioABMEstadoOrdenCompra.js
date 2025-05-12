@@ -1,5 +1,14 @@
 const BASE_URL = "http://localhost:8080/ABMEstadoOrdenCompra";
 
+const parseError = async (response) => {
+    try {
+        const errorData = await response.json();
+        return errorData.mensaje || "Error desconocido";
+    } catch {
+        return "Error inesperado en el servidor";
+    }
+};
+
 const getEstados = async (soloVigentes) => {
     const response = await fetch(`${BASE_URL}/getEstados?soloVigentes=${soloVigentes}`, {
         method: "GET",
@@ -10,13 +19,11 @@ const getEstados = async (soloVigentes) => {
     });
 
     if (!response.ok) {
-        const errorText = await response.text();
-        console.error("Error:", errorText);
+        const message = await parseError(response);
+        throw new Error(message);
     }
 
-    const data = await response.json();
-
-    return data;
+    return await response.json();
 };
 
 const altaEstado = async (nombreEstado) => {
@@ -29,9 +36,8 @@ const altaEstado = async (nombreEstado) => {
     });
 
     if (!response.ok) {
-        const errorText = await response.text();
-        console.error("Error:", errorText);
-        throw new Error("Error al dar de alta");
+        const message = await parseError(response);
+        throw new Error(message);
     }
 
     return null;
@@ -47,9 +53,8 @@ const bajaEstado = async (idEstadoOrdenCompra) => {
     });
 
     if (!response.ok) {
-        const errorText = await response.text();
-        console.error("Error:", errorText);
-        throw new Error("Error al dar de baja");
+        const message = await parseError(response);
+        throw new Error(message);
     }
 
     return null;
@@ -65,13 +70,11 @@ const getDatosEstado = async (idEstadoOrdenCompra) => {
     });
 
     if (!response.ok) {
-        const errorText = await response.text();
-        console.error("Error:", errorText);
+        const message = await parseError(response);
+        throw new Error(message);
     }
 
-    const data = await response.json();
-
-    return data;
+    return await response.json();
 };
 
 const confirmar = async (dto) => {
@@ -85,9 +88,8 @@ const confirmar = async (dto) => {
     });
 
     if (!response.ok) {
-        const errorText = await response.text();
-        console.error("Error:", errorText);
-        throw new Error("Error: el nombre ya se encuentra en uso");
+        const message = await parseError(response);
+        throw new Error(message);
     }
 
     return null;

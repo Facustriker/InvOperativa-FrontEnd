@@ -14,7 +14,7 @@ function PageModificarEstado() {
         ServicioABMEstadoOrdenCompra.getDatosEstado(id)
             .then(data => {
                 setEstado(data);
-                setNombreEstado(data.nombre || '');
+                setNombreEstado(data.nombreEstado || ''); // corregido: era `data.nombre`
             })
             .catch(error => {
                 console.error("Error al obtener datos del estado:", error);
@@ -32,13 +32,14 @@ function PageModificarEstado() {
             nombreEstado: nuevoNombreEstado
         };
 
-        let response = await ServicioABMEstadoOrdenCompra.confirmar(dto);
-        if (typeof response === "string") {
-            setError(response);
-            return;
+        try {
+            await ServicioABMEstadoOrdenCompra.confirmar(dto);
+            setError(null);
+            navigate("/Parametros/ABMEstadoOrdenCompra", { state: { recargar: true } });
+        } catch (err) {
+            console.error("Error al modificar estado:", err);
+            setError(err.message);
         }
-
-        navigate("/Parametros/ABMEstadoOrdenCompra", { state: { recargar: true } });
     };
 
     const handleSubmit = (e) => {

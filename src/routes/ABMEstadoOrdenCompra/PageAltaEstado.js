@@ -13,38 +13,35 @@ function PageAltaEstado() {
     };
 
     const altaEstado = async (nombreEstado) => {
-        let response = await ServicioABMEstadoOrdenCompra.altaEstado(nombreEstado);
-        if (typeof response === "string") {
-            setError(response);
-            return;
+        try {
+            await ServicioABMEstadoOrdenCompra.altaEstado(nombreEstado);
+            setError(null);
+            navigate("/Parametros/ABMEstadoOrdenCompra", { state: { recargar: true } });
+        } catch (error) {
+            console.error("Error al crear estado:", error);
+            setError(error.message);
         }
-
-        navigate("/Parametros/ABMEstadoOrdenCompra", { state: { recargar: true } });
-        
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
         altaEstado(nombreEstado);
-      };
+    };
 
     return (
         <div>
-            
             <div className="header-container-alta">
                 <h2 className="titulo-centro">Crear nuevo estado</h2>
-            
 
-            <form onSubmit={handleSubmit} className="formularioAlta">
-                <input
-                    type="text"
-                    value={nombreEstado}
-                    onChange={handleChange}
-                    placeholder="Nombre..."
-                />
-                <button type="submit">Crear</button>
-            </form>
-
+                <form onSubmit={handleSubmit} className="formularioAlta">
+                    <input
+                        type="text"
+                        value={nombreEstado}
+                        onChange={handleChange}
+                        placeholder="Nombre..."
+                    />
+                    <button type="submit">Crear</button>
+                </form>
             </div>
 
             {error && (
@@ -53,8 +50,6 @@ function PageAltaEstado() {
                     <p>{error}</p>
                 </div>
             )}
-
-            
         </div>
     );
 }
