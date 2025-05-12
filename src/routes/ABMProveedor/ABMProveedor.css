@@ -50,7 +50,7 @@ tr:hover {
     text-align: center;
 }
 
-.boton-volver {
+  .boton-volver {
     background-color: #ccc;
     padding: 8px 12px;
     border: none;
@@ -64,4 +64,22 @@ tr:hover {
     border: none;
     border-radius: 4px;
     cursor: pointer;
+  }
+  
+  .header-container-alta{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-between;
+    padding-top: 50px;
+    padding-bottom: 25px;
+  }
+
+  .formularioAlta{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-between;
+    padding-top: 10px;
+    gap: 25px;
   }

@@ -9,7 +9,7 @@ function PageParametros() {
     <div>
       {isRootParametros && (
         <div className="parametros-container">
-          <Link to="ABProveedor"><button>Proveedores</button></Link>
+          <Link to="ABMProveedor"><button>Proveedores</button></Link>
           <Link to="ABMEstadoOrdenCompra"><button>Estados Orden Compra</button></Link>
           <Link to="ABMModeloInventario"><button>Modelos Inventario</button></Link>
         </div>

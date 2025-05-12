@@ -2,11 +2,13 @@ import { BrowserRouter as Router, Routes, Route, useLocation, Link } from 'react
 import './App.css';
 import Header from "./components/Header";
 import PageParametros from './routes/Parametros/PageParametros';
-import PageABProveedor from './routes/ABProveedor/PageABProveedor';
+import PageABMProveedor from './routes/ABMProveedor/PageABMProveedor';
 import PageABMEstadoOrdenCompra from './routes/ABMEstadoOrdenCompra/PageABMEstadoOrdenCompra';
 import PageABMModeloInventario from './routes/ABMModeloInventario/PageABMModeloInventario';
 import PageModificarEstado from './routes/ABMEstadoOrdenCompra/PageModificarEstado';
 import PageAltaEstado from './routes/ABMEstadoOrdenCompra/PageAltaEstado';
+import PageAltaProveedor from './routes/ABMProveedor/PageAltaProveedor';
+import PageModificarProveedor from './routes/ABMProveedor/PageModificarProveedor';
 
 function App() {
   const location = useLocation();
@@ -32,7 +34,10 @@ function App() {
 
         {/* Agregar rutas ACÁ abajo a medida que se necesite */}
         <Route path="/Parametros" element={<PageParametros />}>
-          <Route path="ABProveedor" element={<PageABProveedor />} />
+          <Route path="ABMProveedor" element={<PageABMProveedor />}>
+            <Route path="PageAltaProveedor" element={<PageAltaProveedor />} />
+            <Route path="PageModificarProveedor/:id" element={<PageModificarProveedor />} />
+          </Route>
           <Route path="ABMEstadoOrdenCompra" element={<PageABMEstadoOrdenCompra />}>
             <Route path="PageAltaEstado" element={<PageAltaEstado />} />
             <Route path="PageModificarEstado/:id" element={<PageModificarEstado />} />
